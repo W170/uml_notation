@@ -1,7 +1,7 @@
 import {Sms} from "./strategies/sms.class";
 import {Email} from "./strategies/email.class";
 import {WhatsApp} from "./strategies/whatsapp.class";
-import {INotification} from "./notification.interface";
+import {NotificationStrategy} from "./notification.interface";
 
 const RegisteredFactories = {
   sms: Sms,
@@ -10,11 +10,12 @@ const RegisteredFactories = {
 }
 export type SupportedProviders = keyof typeof RegisteredFactories
 
-export class NotificationFactory implements INotification{
+export class NotificationFactory extends NotificationStrategy {
   constructor(providerType: keyof typeof RegisteredFactories) {
+    super();
     if (!(providerType in RegisteredFactories)) throw new Error("Strategy provider not found");
     const strategy = RegisteredFactories[providerType]
-    return <INotification> new strategy();
+    return <NotificationStrategy> new strategy();
   }
 
   send(params: Record<string, unknown>): boolean {

@@ -1,21 +1,18 @@
-import {Notification} from "./notification.class";
+import { NotificationFactory } from "./notification.factory";
 
-function main(){
-  const notificator = new Notification();
-  console.log("================SMS================")
-  notificator.setNotificationMethod("sms");
-  notificator.launchNotification({text:"Hello world!"});
-  console.log("\n")
+function main() {
+  const params = [
+    { type: "sms", params: { text: "Hello world!" } },
+    { type: "whatsapp", params: { text: "Hello world!" } },
+    { type: "email", params: { text: "Hello world!" } }
+  ];
 
-  console.log("================WhatsApp================")
-  notificator.setNotificationMethod("whatsapp");
-  notificator.launchNotification({text:"Hello world!"});
-  console.log("\n")
+  const notifications = params.map(({ type, params }) => {
+    const notification = new NotificationFactory(type as any);
 
-  console.log("================Email================")
-  notificator.setNotificationMethod("email");
-  notificator.launchNotification({text:"Hello world!"});
-  console.log("\n")
+    return notification.send(params);
+  })
+  console.log(notifications);
 
 }
 

@@ -1,8 +1,8 @@
-import {INotification} from "./notification.interface";
+import {NotificationStrategy} from "./notification.interface";
 import {NotificationFactory, SupportedProviders} from "./notification.factory";
 
 export class Notification {
-  private notificationStrategy: INotification;
+  private notificationStrategy: NotificationStrategy;
 
   public setNotificationMethod(method:SupportedProviders){
     this.notificationStrategy = new NotificationFactory(method)

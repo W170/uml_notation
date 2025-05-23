@@ -1,6 +1,6 @@
-import {INotification} from "../notification.interface";
+import {NotificationStrategy} from "../notification.interface";
 
-export class Email implements INotification {
+export class Email extends NotificationStrategy {
   private connect(){
     console.info("CREATING CONNECTION WITH SMTP SERVER");
   }
